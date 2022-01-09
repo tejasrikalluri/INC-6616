@@ -1,0 +1,98 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="module" src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.esm.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.2.1/superagent.js"></script>
+    <script nomodule src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.js">
+    </script>
+    <script src="./assets/iparams.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://static.freshdev.io/fdk/2.0/assets/freshdesk.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/iparams.css">
+
+</head>
+
+<body>
+    <div class="authentication align">
+        <fw-input label="Freshdesk Domain" id="domain" required clear-input>
+        </fw-input>
+        <fw-input label="Freshdesk API key" id="apiKey" required clear-input>
+        </fw-input>
+        <span class="trouble"> <a
+                href="https://support.freshdesk.com/support/solutions/articles/215517-how-to-find-your-api-key"
+                target="_blank">Trouble
+                finding
+                API
+                key?</a></span>
+        <div class="error_div"></div>
+        <div>
+            <fw-button color="primary" id="authBtn"> Authenticate</fw-button>
+        </div>
+    </div>
+    <div class="next_page align">
+        <label>When an ticket is raised, the field where Customer ID is captured<span class="red"> *</span></label>
+        <select class="form-control" id="customerID"></select>
+        <fw-input label="Cargas API URL" id="cargo_url" required clear-input>
+        </fw-input>
+        <fw-input label="Cargas API Key" id="cargoApiKey" required clear-input>
+        </fw-input>
+        <div id="selectError" class="red">
+        </div>
+
+        <script type="text/javascript">
+            var updateConfigs;
+            function postConfigs() {
+                var domain = $("#domain").val();
+                var api_key = $("#apiKey").val();
+                var customerID = $("#customerID").val();
+                var cargo_url = $("#cargo_url").val();
+                var cargoApiKey = $("#cargoApiKey").val();
+                return {
+                    __meta: {
+                        secure: ["api_key"]
+                    },
+                    domain: domain,
+                    api_key: api_key,
+                    customerID: customerID, cargo_url: cargo_url, cargoApiKey: cargoApiKey
+                };
+            }
+
+            function getConfigs(configs) {
+                updateConfigs = configs;
+                $("#domain").val(configs.domain);
+                $("#apiKey").val(configs.api_key);
+                $("#cargo_url").val(configs.cargo_url);
+                $("#cargoApiKey").val(configs.cargoApiKey);
+            }
+            function validate() {
+                var btnText = $("#authBtn").text();
+                if ($(".authentication").is(":visible") && btnText !== "Authenticated") {
+                    $(".error_div").html("Please click Authenticate button for further installation").fadeOut(5000);
+                    return false;
+                }
+                else if ($(".next_page").is(":visible")) {
+                    if ($("#customerID").val() === null || $("#customerID").val() === "--Select--" || $("#customerID").val() === undefined ||
+                        $("#cargo_url").val() === null || $("#cargo_url").val() === "" || $("#cargo_url").val() === undefined ||
+                        $("#cargoApiKey").val() === null || $("#cargoApiKey").val() === "" || $("#cargoApiKey").val() === undefined
+                    ) {
+                        console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                        $("#selectError").text("Please choose field for all mandatory fields");
+                        return false;
+                    } else {
+                        console.log("EEEEEEEEEEEEEEEEEEEEeeeeeeeeeeeeeee");
+                        $("#selectError").text("");
+                    }
+                }
+                return true;
+            }
+        </script>
+</body>
+
+</html>

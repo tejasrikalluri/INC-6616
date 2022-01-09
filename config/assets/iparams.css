@@ -1,0 +1,31 @@
+.trouble {
+    margin-left: 41%;
+    padding-right: 5px;
+}
+
+.error_div {
+    color: red;
+    margin-bottom: 3px !important;
+}
+
+fw-input {
+    width: 60% !important;
+}
+
+select {
+    width: 30% !important;
+    margin-bottom: 2%;
+}
+
+#selectError {
+    margin-top: 1.5%;
+}
+
+.red {
+    color: red;
+}
+
+.align {
+    margin-left: 5px;
+    margin-top: 9px;
+}

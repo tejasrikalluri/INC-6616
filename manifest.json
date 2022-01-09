@@ -1,0 +1,23 @@
+{
+  "platform-version": "2.2",
+  "product": {
+    "freshdesk": {
+      "events": {
+        "onTicketCreate": {
+          "handler": "onTicketCreateHandler"
+        }
+      }
+    }
+  },
+  "engines": {
+    "node": "12.22.6",
+    "fdk": "7.0.0"
+  },
+  "whitelisted-domains": [
+    "https://*.freshdesk.com",
+    "https://web.santaenergy.com"
+  ],
+  "dependencies": {
+    "superagent": "6.1.0"
+  }
+}
