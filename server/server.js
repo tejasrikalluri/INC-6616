@@ -15,18 +15,19 @@ exports = {
       if (key[0].includes(customerID)) {
         console.log(args.data.ticket.custom_fields[key[0]]);
         if (args.data.ticket.custom_fields[key[0]] !== null)
-          makeRequest(args.data.ticket, args.iparams, args.data.ticket.custom_fields[key[0]]);
+          makeRequest(args.data.ticket, args.iparams, args.data.ticket.custom_fields[key[0]], args.data.actor);
         break;
       }
     }
   }
 
 };
-function makeRequest(ticket, iparams, customerID) {
+function makeRequest(ticket, iparams, customerID, actor) {
   var body = {
     // "CustomerID": 30000499,
     "CustomerID": customerID,
     "Note": `<b>Ticket Details:</b><br/><div>Subject: ${ticket.subject}</div><div>ID: ${ticket.id}</div>
+    <div>Created By: ${actor.name} (${actor.email})</div>
     <div>Description: ${ticket.description_text}</div><div>URL: <a href="https://${iparams.domain}/a/tickets/${ticket.id}" target="_blank">https://${iparams.domain}/a/tickets/${ticket.id}</a></div>`,
     "UserName": "Freshworks", "NoteType": "FreshDesk Ticket", "CreatedDate": new Date().toISOString()
   };
